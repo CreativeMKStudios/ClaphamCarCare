@@ -7,6 +7,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { business } from "../data/business";
+import { absolute, asset } from "../lib/path";
 
 interface Props {
   title: string;
@@ -15,20 +16,19 @@ interface Props {
 }
 
 const { title, description, schema } = Astro.props;
-const absolute = new URL(Astro.url.pathname, Astro.site).toString();
-const canonical = Astro.url.pathname === "/" ? absolute : absolute.replace(/\/$/, "");
-const image = new URL("/og.jpg", Astro.site).toString();
+const canonical = Astro.url.href;
+const image = new URL(asset("og.jpg"), import.meta.env.SITE).toString();
 const fullTitle = title.includes(business.name) ? title : `${title} | ${business.name}`;
 
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": ["AutoWash", "AutomotiveBusiness"],
-  "@id": `${Astro.site}#business`,
+  "@id": `${absolute("/")}#business`,
   name: business.name,
   alternateName: business.alternateName,
   description:
     "Hand car wash and detailing on Clapham High Street, Bedford. Level 1 from £15. Paint correction, ceramic coating, and other extras are priced on the board.",
-  url: Astro.site?.toString(),
+  url: absolute("/"),
   telephone: business.phoneTel,
   image: [image],
   priceRange: "£15+",
@@ -95,9 +95,9 @@ const blocks = [localBusiness, ...(schema ? (Array.isArray(schema) ? schema : [s
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={asset("favicon-32.png")} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={asset("favicon.png")} />
+    <link rel="sitemap" href={asset("sitemap-index.xml")} />
     {
       blocks.map((block) => (
         <script type="application/ld+json" set:html={JSON.stringify(block)} />

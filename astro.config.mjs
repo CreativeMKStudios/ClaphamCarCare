@@ -2,13 +2,14 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
-// Set SITE when the real domain is connected. Google has no website on the profile yet.
-const site = process.env.SITE ?? "https://claphamcarcare.co.uk";
+const site = process.env.SITE ?? "https://creativemkstudios.github.io";
+const base = process.env.BASE ?? "/ClaphamCarCare";
 
 export default defineConfig({
   site,
+  base,
   compressHTML: true,
-  trailingSlash: "never",
+  trailingSlash: "always",
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

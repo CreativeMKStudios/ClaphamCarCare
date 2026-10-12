@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import { business, levelOne } from "../data/business";
+import { path } from "../lib/path";
 import hero from "../assets/photos/lambo-doors.jpg";
 import board from "../assets/photos/level1-board.jpg";
 import foam from "../assets/photos/rolls-foam.jpg";
@@ -42,12 +43,12 @@ const description =
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <a
-          href="/contact"
+          href={path("/contact")}
           class="inline-flex h-12 items-center rounded-full bg-signal px-6 text-base font-semibold text-white transition-transform duration-150 hover:bg-signal-press active:scale-[0.98]"
         >
           Book a wash
         </a>
-        <a href="/projects" class="inline-flex h-12 items-center gap-2 text-base font-medium">
+        <a href={path("/projects")} class="inline-flex h-12 items-center gap-2 text-base font-medium">
           See the work
           <Icon name="arrow" class="size-4" />
         </a>
@@ -100,7 +101,7 @@ const description =
             }
           </ul>
           <p class="text-sm text-mute">{levelOne.note}</p>
-          <a href="/services" class="inline-flex items-center gap-2 text-sm font-medium">
+          <a href={path("/services")} class="inline-flex items-center gap-2 text-sm font-medium">
             Extras and the full list
             <Icon name="arrow" class="size-4" />
           </a>
@@ -140,7 +141,7 @@ const description =
           }
         </div>
       </div>
-      <a href="/about#reviews" class="mt-10 inline-flex items-center gap-2 text-sm font-medium">
+      <a href={path("/about#reviews")} class="mt-10 inline-flex items-center gap-2 text-sm font-medium">
         Read the Google reviews
         <Icon name="arrow" class="size-4" />
       </a>
@@ -175,7 +176,7 @@ const description =
         <p class="mt-2 pl-6 text-sm text-mute">
           {business.address.locality}, {business.address.region} {business.address.postcode}
         </p>
-        <a class="mt-4 inline-flex pl-6 text-sm font-medium" href="/areas">Villages nearby</a>
+        <a class="mt-4 inline-flex pl-6 text-sm font-medium" href={path("/areas")}>Villages nearby</a>
       </div>
       <div>
         <p class="flex items-center gap-2 text-sm font-medium">
@@ -184,7 +185,7 @@ const description =
         </p>
         <p class="mt-2 pl-6 text-sm text-mute">Mon to Sat, 9:30am to 6pm</p>
         <p class="pl-6 text-sm text-mute">Sunday, 10am to 4pm</p>
-        <a class="mt-4 inline-flex h-11 items-center rounded-full bg-signal px-5 text-sm font-semibold text-white" href="/contact">
+        <a class="mt-4 inline-flex h-11 items-center rounded-full bg-signal px-5 text-sm font-semibold text-white" href={path("/contact")}>
           Book a wash
         </a>
       </div>
