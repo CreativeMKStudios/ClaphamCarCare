@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import { addressLine, business, extras, levelOne } from "../data/business";
+import { absolute } from "../lib/path";
 
 const description =
   "Book a wash at Clapham Car Care, 95 High Street, Clapham, Bedford, MK41 6AQ. Call or text 07530 077007. Open seven days.";
@@ -17,8 +18,8 @@ const crumbs = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
-    { "@type": "ListItem", position: 2, name: "Contact", item: new URL("/contact", Astro.site).toString() },
+    { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
+    { "@type": "ListItem", position: 2, name: "Contact", item: absolute("/contact") },
   ],
 };
 

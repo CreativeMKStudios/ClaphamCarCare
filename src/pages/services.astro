@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import { extras, faqs, levelOne } from "../data/business";
+import { absolute, path } from "../lib/path";
 import board from "../assets/photos/level1-board.jpg";
 import extrasBoard from "../assets/photos/extras-board.jpg";
 
@@ -24,8 +25,8 @@ const crumbs = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
-    { "@type": "ListItem", position: 2, name: "Services", item: new URL("/services", Astro.site).toString() },
+    { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
+    { "@type": "ListItem", position: 2, name: "Services", item: absolute("/services") },
   ],
 };
 
@@ -166,7 +167,7 @@ const offerSchema = {
         }
       </div>
       <a
-        href="/contact"
+        href={path("/contact")}
         class="mt-10 inline-flex h-12 items-center rounded-full bg-signal px-6 font-semibold text-white"
       >
         Book a wash

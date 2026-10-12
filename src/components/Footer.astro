@@ -1,5 +1,6 @@
 ---
 import { addressLine, business } from "../data/business";
+import { path } from "../lib/path";
 import Icon from "./Icon.astro";
 
 const year = new Date().getFullYear();
@@ -25,7 +26,7 @@ const year = new Date().getFullYear();
         <Icon name="phone" class="size-4 text-signal" />
         {business.phoneDisplay}
       </a>
-      <a class="mt-4 block text-mute hover:text-paper" href="/contact">Book a wash</a>
+      <a class="mt-4 block text-mute hover:text-paper" href={path("/contact")}>Book a wash</a>
       <a class="mt-2 block text-mute hover:text-paper" href={business.mapsUrl} rel="noopener">
         Open in Google Maps
       </a>

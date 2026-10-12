@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ReviewList from "../components/ReviewList.astro";
 import { business, reviews } from "../data/business";
+import { absolute } from "../lib/path";
 import bay from "../assets/photos/rolls-foam.jpg";
 
 const description =
@@ -12,8 +13,8 @@ const crumbs = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
-    { "@type": "ListItem", position: 2, name: "About", item: new URL("/about", Astro.site).toString() },
+    { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
+    { "@type": "ListItem", position: 2, name: "About", item: absolute("/about") },
   ],
 };
 ---

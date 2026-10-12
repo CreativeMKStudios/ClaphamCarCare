@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { areas, business } from "../data/business";
+import { absolute } from "../lib/path";
 
 const description =
   "Clapham Car Care is at 95 High Street, Clapham, Bedford. Drivers come from Oakley, Bromham, Bedford, Kempston, and the villages nearby.";
@@ -9,8 +10,8 @@ const crumbs = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
-    { "@type": "ListItem", position: 2, name: "Areas", item: new URL("/areas", Astro.site).toString() },
+    { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
+    { "@type": "ListItem", position: 2, name: "Areas", item: absolute("/areas") },
   ],
 };
 ---

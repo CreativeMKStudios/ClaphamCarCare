@@ -8,4 +8,4 @@ npm run dev
 npm run build
 ```
 
-Set `SITE` to the live domain before you deploy. The default canonical host is `https://claphamcarcare.co.uk`.
+The live site is published with GitHub Pages. `SITE` defaults to `https://creativemkstudios.github.io` and `BASE` defaults to `/ClaphamCarCare`.
