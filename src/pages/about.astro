@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import ReviewList from "../components/ReviewList.astro";
+import { business, reviews } from "../data/business";
+import bay from "../assets/photos/rolls-foam.jpg";
+
+const description =
+  "Clapham Car Care is a hand wash and detailing bay at 95 High Street, Clapham, Bedford. Family-run, with cash and card taken.";
+
+const crumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
+    { "@type": "ListItem", position: 2, name: "About", item: new URL("/about", Astro.site).toString() },
+  ],
+};
+---
+
+<Base title="About the High Street bay" description={description} schema={crumbs}>
+  <article class="mx-auto max-w-7xl px-4 py-12 md:py-16">
+    <h1 class="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">A hand wash with detailing habits.</h1>
+    <p class="mt-6 max-w-[62ch] text-lg leading-relaxed text-mute">
+      Clapham Car Care works from a bay on the High Street in Clapham, the village just north of Bedford.
+    </p>
+
+    <div class="mt-12 grid items-start gap-10 lg:grid-cols-12">
+      <Image
+        src={bay}
+        alt="Wash foam on a Rolls-Royce, with the Clapham Car Care bay and product shelf behind it."
+        widths={[640, 960, 1200]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="h-auto w-full rounded-2xl lg:col-span-6"
+      />
+      <div class="grid gap-5 text-base leading-relaxed lg:col-span-6">
+        <p>
+          The Google profile describes a car cleaning and detailing service for Clapham in north Bedfordshire. The work runs from a maintenance wash through to paint correction, and scratch and dent repair.
+        </p>
+        <p>
+          The bay was set up to use proper detailing methods, with the ease of a normal hand car wash. You drive in. You do not need an account or an app.
+        </p>
+        <p>
+          Customers describe the team as family-run. The owner replies on Google as the Clapham Car Care Team. The sign on the unit also carries the name {business.legalName}.
+        </p>
+        <p>
+          One car or a fleet, the profile says they can take the booking. Cash and card are both accepted. Prices for extra work are agreed before the job starts.
+        </p>
+      </div>
+    </div>
+
+    <section id="reviews" class="mt-20">
+      <h2 class="text-3xl font-semibold tracking-tight md:text-5xl">Google reviews</h2>
+      <p class="mt-4 max-w-[62ch] leading-relaxed text-mute">
+        The profile shows {business.rating} from {business.reviewCount} reviews. These are the ones that could be read in full. Names are shown when Google showed them. The rest of the {business.reviewCount} are on the
+        <a class="underline decoration-line underline-offset-4 hover:decoration-signal" href={business.mapsUrl}>Google listing</a>.
+      </p>
+      <div class="mt-8">
+        <ReviewList reviews={reviews} />
+      </div>
+    </section>
+  </article>
+</Base>

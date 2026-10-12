@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import foam from "../assets/photos/rolls-foam.jpg";
+import side from "../assets/photos/rolls-side.jpg";
+import lambo from "../assets/photos/lambo-doors.jpg";
+import m5 from "../assets/photos/bmw-m5.jpg";
+import rear from "../assets/photos/bmw-8-rear.jpg";
+import qashqai from "../assets/photos/qashqai.jpg";
+import interior from "../assets/photos/bmw-interior.jpg";
+import eight from "../assets/photos/bmw-8-side.jpg";
+
+const shots = [
+  { src: lambo, alt: "A black Lamborghini with both doors up outside the Clapham Car Care sign.", caption: "Doors up on the forecourt, under the bay sign." },
+  { src: foam, alt: "A silver Rolls-Royce covered in wash foam, with the product shelf of the bay behind.", caption: "Foam on the bonnet, products on the shelf." },
+  { src: side, alt: "Side view of a Rolls-Royce dripping with foam at Clapham Car Care.", caption: "Snow foam running off before the hand wash." },
+  { src: m5, alt: "A blue BMW M5 parked on the brick forecourt after a wash.", caption: "A blue M5 after the wash." },
+  { src: rear, alt: "Rear quarter and roof of a grey BMW 8 Series.", caption: "Roof and glass on a grey 8 Series." },
+  { src: eight, alt: "A grey BMW 8 Series on wet bricks beside the unit.", caption: "Wet bricks, dry paint." },
+  { src: interior, alt: "Red leather front seats and a clean carpet in a BMW.", caption: "Interior, after a clean of the seats and carpet." },
+  { src: qashqai, alt: "A gold Nissan Qashqai in side profile after a wash.", caption: "A daily SUV, not only the sports cars." },
+];
+
+const description =
+  "Photos from the Clapham Car Care Google profile: washes on the High Street bay in Clapham, Bedford, including exterior foam and a finished interior.";
+
+const crumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
+    { "@type": "ListItem", position: 2, name: "Projects", item: new URL("/projects", Astro.site).toString() },
+  ],
+};
+---
+
+<Base title="Cars washed at the bay" description={description} schema={crumbs}>
+  <article class="mx-auto max-w-7xl px-4 py-12 md:py-16">
+    <h1 class="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">Work from the Google photos.</h1>
+    <p class="mt-6 max-w-[58ch] text-lg leading-relaxed text-mute">
+      These pictures are from the Clapham Car Care Google profile. They show the bay, the wash, and cars after the work.
+    </p>
+    <div class="mt-12 columns-1 gap-6 sm:columns-2">
+      {
+        shots.map((shot) => (
+          <figure class="mb-6 break-inside-avoid">
+            <Image
+              src={shot.src}
+              alt={shot.alt}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 640px) 46vw, 100vw"
+              class="h-auto w-full rounded-2xl"
+            />
+            <figcaption class="mt-3 text-sm text-mute">{shot.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </article>
+</Base>

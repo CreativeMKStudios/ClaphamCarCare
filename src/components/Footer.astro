@@ -1,0 +1,39 @@
+---
+import { addressLine, business } from "../data/business";
+import Icon from "./Icon.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <p class="text-lg font-semibold tracking-tight">Clapham Car Care</p>
+      <p class="mt-2 max-w-sm text-sm leading-relaxed text-mute">
+        Hand wash and detailing at 95 High Street. Also trading as {business.legalName}.
+      </p>
+    </div>
+    <div class="text-sm leading-relaxed">
+      <p>{addressLine()}</p>
+      <p class="mt-3 flex items-start gap-2">
+        <Icon name="clock" class="mt-0.5 size-4 text-signal" />
+        <span>Mon to Sat, 9:30am to 6pm<br />Sunday, 10am to 4pm</span>
+      </p>
+    </div>
+    <div class="text-sm">
+      <a class="inline-flex items-center gap-2 font-semibold" href={`tel:${business.phoneTel}`}>
+        <Icon name="phone" class="size-4 text-signal" />
+        {business.phoneDisplay}
+      </a>
+      <a class="mt-4 block text-mute hover:text-paper" href="/contact">Book a wash</a>
+      <a class="mt-2 block text-mute hover:text-paper" href={business.mapsUrl} rel="noopener">
+        Open in Google Maps
+      </a>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <p class="mx-auto max-w-7xl px-4 py-4 text-xs text-mute">
+      © {year} Clapham Car Care. {business.rating} from {business.reviewCount} Google reviews.
+    </p>
+  </div>
+</footer>

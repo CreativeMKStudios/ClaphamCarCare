@@ -1,0 +1,176 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { extras, faqs, levelOne } from "../data/business";
+import board from "../assets/photos/level1-board.jpg";
+import extrasBoard from "../assets/photos/extras-board.jpg";
+
+const description =
+  "Level 1 hand wash from £15 at Clapham Car Care. Ceramic coating, paint correction, tint, wrapping, and smart repair are priced on the bay board.";
+
+const groups = [
+  {
+    title: "Inside and soft tops",
+    items: extras.filter((item) => /Interior|Fabric/.test(item.name)),
+  },
+  {
+    title: "Paint, glass, and wheels",
+    items: extras.filter((item) => !/Interior|Fabric/.test(item.name)),
+  },
+];
+
+const crumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).toString() },
+    { "@type": "ListItem", position: 2, name: "Services", item: new URL("/services", Astro.site).toString() },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
+const pounds = (value: string) => Number(value.replace(/[^\d]/g, ""));
+
+const offerSchema = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Clapham Car Care services",
+  itemListElement: [
+    ...levelOne.prices.map((row) => ({
+      "@type": "Offer",
+      name: `Level 1, ${row.name}`,
+      price: pounds(row.price),
+      priceCurrency: "GBP",
+    })),
+    ...extras.map((row) => ({
+      "@type": "Offer",
+      name: row.name,
+      priceCurrency: "GBP",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: pounds(row.price),
+        priceCurrency: "GBP",
+      },
+    })),
+  ],
+};
+---
+
+<Base title="Washes and extra work" description={description} schema={[crumbs, faqSchema, offerSchema]}>
+  <article class="mx-auto max-w-7xl px-4 py-12 md:py-16">
+    <h1 class="max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">Level 1, then the extras.</h1>
+    <p class="mt-6 max-w-[58ch] text-lg leading-relaxed text-mute">
+      The prices below are the ones printed on the boards at the bay. Extra work is quoted before it starts.
+    </p>
+
+    <section class="mt-14 grid items-start gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <h2 class="text-3xl font-semibold tracking-tight">Level 1 package</h2>
+        <p class="mt-4 leading-relaxed text-mute">
+          This is the hand wash. A customer also booked a Level 3 clean. If you want more than Level 1, call and we will price it first.
+        </p>
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          {
+            levelOne.prices.map((row) => (
+              <p>
+                <span class="block text-4xl font-semibold tracking-tight">{row.price}</span>
+                <span class="mt-1 block text-sm text-mute">{row.name}</span>
+              </p>
+            ))
+          }
+        </div>
+        <ul class="mt-8 grid gap-3">
+          {
+            levelOne.includes.map((item) => (
+              <li class="flex items-center gap-2">
+                <Icon name="check" class="size-4 text-signal" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 text-sm text-mute">{levelOne.note}</p>
+      </div>
+      <Image
+        src={board}
+        alt="Level 1 board: wheel clean, pre-wash, snow foam, hand wash, dry, and tyre shine. £15 and £19."
+        widths={[640, 960, 1200]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="h-auto w-full rounded-2xl lg:col-span-7"
+      />
+    </section>
+
+    <section class="mt-20">
+      <h2 class="max-w-xl text-3xl font-semibold tracking-tight md:text-5xl">Extra services</h2>
+      <p class="mt-4 max-w-[58ch] leading-relaxed text-mute">
+        Ask for a quote. The board says enhanced work depends on the quote and the booking time. Terms apply.
+      </p>
+      <div class="mt-10 grid gap-10 lg:grid-cols-12">
+        <Image
+          src={extrasBoard}
+          alt="Extra services board with paint correction, ceramic coating, interior cleaning, tint, film, and wrapping prices."
+          widths={[640, 960, 1200]}
+          sizes="(min-width: 1024px) 42vw, 100vw"
+          class="h-auto w-full rounded-2xl lg:col-span-5"
+        />
+        <div class="grid gap-10 lg:col-span-7">
+          {
+            groups.map((group) => (
+              <div>
+                <h3 class="text-lg font-semibold">{group.title}</h3>
+                <ul class="mt-4 grid gap-4 sm:grid-cols-2">
+                  {group.items.map((item) => (
+                    <li>
+                      <p class="font-medium leading-snug">{item.name}</p>
+                      <p class="mt-1 text-sm text-signal-text">{item.price}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-20 grid gap-8 border-t border-line pt-12 md:grid-cols-[1fr_1.4fr]">
+      <h2 class="text-3xl font-semibold tracking-tight">Cars, vans, and bikes bought for cash.</h2>
+      <div class="leading-relaxed text-mute">
+        <p>
+          The same board offers to buy cars, vans, and motorbikes for cash. A Google review describes a small van from TNL that had old sign writing removed and was ready to use.
+        </p>
+        <p class="mt-4">Bring the details when you call. We will say if we can make an offer.</p>
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <h2 class="text-3xl font-semibold tracking-tight">Questions we get</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        {
+          faqs.map((item) => (
+            <div>
+              <h3 class="text-lg font-semibold">{item.q}</h3>
+              <p class="mt-2 max-w-[48ch] leading-relaxed text-mute">{item.a}</p>
+            </div>
+          ))
+        }
+      </div>
+      <a
+        href="/contact"
+        class="mt-10 inline-flex h-12 items-center rounded-full bg-signal px-6 font-semibold text-white"
+      >
+        Book a wash
+      </a>
+    </section>
+  </article>
+</Base>
